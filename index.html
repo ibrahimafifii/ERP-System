@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus ERP — تسجيل الدخول</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231B3A6B'/><text y='24' x='4' font-size='22' font-weight='900' fill='%23C9A84C'>N</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+
+  <style>
+    /* ── Login Page Styles ── */
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      background: #0c1628;
+      overflow: hidden;
+    }
+
+    /* Left Panel — Branding */
+    .login-left {
+      flex: 1.1;
+      background: var(--navy-dark);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem 4rem;
+      overflow: hidden;
+    }
+
+    /* Geometric background pattern */
+    .login-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 80%, rgba(201,168,76,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(27,58,107,0.8) 0%, transparent 60%);
+    }
+
+    .login-left::after {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 50%;
+    }
+
+    .brand-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .brand-content { position: relative; z-index: 1; }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .brand-mark {
+      width: 52px; height: 52px;
+      background: var(--gold);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--navy-dark);
+      letter-spacing: -0.05em;
+      box-shadow: 0 8px 24px rgba(201,168,76,0.4);
+    }
+
+    .brand-name {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+    .brand-name span { color: var(--gold); }
+
+    .brand-headline {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .brand-headline span {
+      color: var(--gold);
+      display: block;
+    }
+
+    .brand-desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      max-width: 380px;
+      margin-bottom: 3rem;
+    }
+
+    .brand-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .brand-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .feature-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(201,168,76,0.6);
+    }
+
+    /* Bottom badges */
+    .brand-badges {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 4rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .brand-badge {
+      padding: 0.3rem 0.8rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.45);
+      font-weight: 600;
+    }
+
+    /* Right Panel — Login Form */
+    .login-right {
+      width: 440px;
+      flex-shrink: 0;
+      background: #f8faff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem 2.75rem;
+      position: relative;
+    }
+
+    .login-header { margin-bottom: 2.25rem; }
+
+    .login-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+
+    .login-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Form */
+    .login-form { display: flex; flex-direction: column; gap: 1.1rem; }
+
+    .login-form .form-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .login-input-wrap { position: relative; }
+
+    .login-input {
+      width: 100%;
+      height: 50px;
+      padding: 0 1rem 0 3rem;
+      font-family: var(--font-ar);
+      font-size: 0.95rem;
+      color: var(--text);
+      background: #fff;
+      border: 2px solid #e8ecf3;
+      border-radius: 12px;
+      transition: all 0.2s;
+      outline: none;
+    }
+    [dir="rtl"] .login-input { padding: 0 3rem 0 1rem; }
+
+    .login-input:focus {
+      border-color: var(--navy);
+      box-shadow: 0 0 0 4px rgba(27,58,107,0.08);
+    }
+
+    .login-input::placeholder { color: #b0bec5; }
+
+    .login-input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #b0bec5;
+      font-size: 1rem;
+      pointer-events: none;
+      transition: color 0.2s;
+    }
+    [dir="rtl"] .login-input-icon { left: auto; right: 1rem; }
+
+    .login-input:focus ~ .login-input-icon { color: var(--navy); }
+
+    /* Password toggle */
+    .pass-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #b0bec5;
+      font-size: 0.9rem;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    [dir="rtl"] .pass-toggle { right: auto; left: 1rem; }
+    .pass-toggle:hover { color: var(--navy); }
+
+    .login-error-msg {
+      background: #fde8e6;
+      border: 1px solid rgba(192,57,43,0.2);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--red);
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .login-error-msg.show { display: flex; }
+
+    .login-btn {
+      height: 50px;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: var(--font-ar);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+      box-shadow: 0 4px 14px rgba(27,58,107,0.3);
+    }
+    .login-btn:hover { background: var(--navy-light); box-shadow: 0 6px 20px rgba(27,58,107,0.4); transform: translateY(-1px); }
+    .login-btn:active { transform: translateY(0); }
+    .login-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+    .login-btn .btn-spinner {
+      width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    .login-btn.loading .btn-spinner { display: block; }
+    .login-btn.loading .btn-text { display: none; }
+
+    /* Footer */
+    .login-footer {
+      position: absolute;
+      bottom: 2rem;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #b0bec5;
+    }
+
+    /* Lang toggle */
+    .login-lang {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: rgba(27,58,107,0.06);
+      border: 1.5px solid #e8ecf3;
+      border-radius: 8px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: var(--font-ar);
+      transition: all 0.2s;
+    }
+    [dir="rtl"] .login-lang { left: auto; right: 1.5rem; }
+    .login-lang:hover { border-color: var(--navy); color: var(--navy); }
+
+    /* Animations */
+    .login-right { animation: slideInRight 0.5s ease; }
+    .brand-content { animation: fadeIn 0.6s ease 0.1s both; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .login-left { display: none; }
+      .login-right { width: 100%; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Branding Panel -->
+  <div class="login-left">
+    <div class="brand-grid"></div>
+    <div class="brand-content">
+
+      <div class="brand-logo">
+        <div class="brand-mark">N</div>
+        <div class="brand-name">Nexus<span>ERP</span></div>
+      </div>
+
+      <h1 class="brand-headline">
+        إدارة أعمالك
+        <span>بذكاء وكفاءة</span>
+      </h1>
+
+      <p class="brand-desc">
+        نظام ERP متكامل يربط المخزن بالمبيعات والمحاسبة والموارد البشرية في منصة واحدة احترافية.
+      </p>
+
+      <div class="brand-features">
+        <div class="brand-feature"><span class="feature-dot"></span>إدارة المخزن والجرد بالكامل</div>
+        <div class="brand-feature"><span class="feature-dot"></span>فواتير البيع مع قيود محاسبية تلقائية</div>
+        <div class="brand-feature"><span class="feature-dot"></span>تقارير مالية لحظية شاملة</div>
+        <div class="brand-feature"><span class="feature-dot"></span>أدوار وصلاحيات لكل عضو في الفريق</div>
+        <div class="brand-feature"><span class="feature-dot"></span>يعمل على الجوال والكمبيوتر</div>
+      </div>
+    </div>
+
+    <div class="brand-badges">
+      <span class="brand-badge">Supabase</span>
+      <span class="brand-badge">Vercel</span>
+      <span class="brand-badge">v2.0</span>
+    </div>
+  </div>
+
+  <!-- Login Panel -->
+  <div class="login-right">
+
+    <button class="login-lang" onclick="toggleLang()" id="lang-btn">EN</button>
+
+    <div class="login-header">
+      <h2 class="login-title" data-i18n="welcome_back">مرحباً بعودتك</h2>
+      <p class="login-subtitle" data-i18n="login_subtitle">سجّل دخولك للمتابعة</p>
+    </div>
+
+    <form class="login-form" id="login-form" onsubmit="handleLogin(event)">
+
+      <!-- Error -->
+      <div class="login-error-msg" id="login-error">
+        <span>⚠</span>
+        <span id="login-error-text">البريد أو كلمة المرور غلط</span>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="form-label" data-i18n="email">البريد الإلكتروني</label>
+        <div class="login-input-wrap">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="login-input"
+            placeholder="example@email.com"
+            autocomplete="email"
+            required
+          />
+          <span class="login-input-icon">✉</span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="form-label" data-i18n="password">كلمة المرور</label>
+        <div class="login-input-wrap">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="login-input"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            required
+          />
+          <span class="login-input-icon">🔒</span>
+          <button type="button" class="pass-toggle" onclick="togglePass()" id="pass-toggle" title="إظهار/إخفاء">👁</button>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="login-btn" id="login-btn">
+        <div class="btn-spinner"></div>
+        <span class="btn-text" data-i18n="login_btn">دخول</span>
+      </button>
+
+    </form>
+
+    <div class="login-footer">
+      &copy; 2025 Nexus ERP — جميع الحقوق محفوظة
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    // Init
+    i18n.init();
+    Auth.requireGuest(); // redirect to app if already logged in
+
+    // ── Handle Login ──────────────────────────
+    async function handleLogin(e) {
+      e.preventDefault();
+      const btn   = document.getElementById('login-btn');
+      const errEl = document.getElementById('login-error');
+      const errTx = document.getElementById('login-error-text');
+      const email = document.getElementById('email').value.trim();
+      const pass  = document.getElementById('password').value;
+
+      // Reset error
+      errEl.classList.remove('show');
+
+      // Loading state
+      btn.disabled = true;
+      btn.classList.add('loading');
+
+      try {
+        await Auth.login(email, pass);
+        window.location.href = '/app.html';
+      } catch (err) {
+        console.error(err);
+        errTx.textContent = t('login_error');
+        errEl.classList.add('show');
+        // Shake animation
+        document.getElementById('login-form').style.animation = 'none';
+        requestAnimationFrame(() => {
+          document.getElementById('login-form').style.animation = 'shake 0.4s ease';
+        });
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove('loading');
+      }
+    }
+
+    // ── Password toggle ───────────────────────
+    function togglePass() {
+      const inp = document.getElementById('password');
+      const btn = document.getElementById('pass-toggle');
+      if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
+      else                         { inp.type = 'password'; btn.textContent = '👁'; }
+    }
+
+    // ── Language toggle ───────────────────────
+    function toggleLang() {
+      i18n.toggle();
+      document.getElementById('lang-btn').textContent = i18n.lang === 'ar' ? 'EN' : 'عر';
+    }
+
+    // Shake animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes shake {
+        0%,100%{transform:translateX(0)}
+        20%{transform:translateX(-8px)}
+        40%{transform:translateX(8px)}
+        60%{transform:translateX(-5px)}
+        80%{transform:translateX(5px)}
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

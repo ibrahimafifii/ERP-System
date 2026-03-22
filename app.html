@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus ERP</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231B3A6B'/><text y='24' x='4' font-size='22' font-weight='900' fill='%23C9A84C'>N</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       APP SHELL
+  ════════════════════════════════ -->
+  <div class="app-shell" id="app-shell" style="display:none">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar" id="sidebar">
+
+      <!-- Logo -->
+      <a href="#dashboard" class="sidebar-logo" onclick="Router.go('dashboard')">
+        <div class="logo-mark">N</div>
+        <div class="logo-text">
+          <div class="logo-name">Nexus ERP</div>
+          <div class="logo-sub">نظام إدارة الأعمال</div>
+        </div>
+      </a>
+
+      <!-- Navigation -->
+      <nav class="sidebar-nav" id="sidebar-nav">
+
+        <!-- Main -->
+        <div class="nav-section-label" data-i18n="section_main">الرئيسي</div>
+
+        <button class="nav-item active" data-route="dashboard" onclick="Router.go('dashboard')">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label" data-i18n="nav_dashboard">الرئيسية</span>
+        </button>
+
+        <!-- Sales & Purchasing -->
+        <div class="nav-section-label" data-i18n="section_sales_purchasing">المبيعات والمشتريات</div>
+
+        <button class="nav-item" data-route="sales" onclick="Router.go('sales')" data-module="sales">
+          <span class="nav-icon">🧾</span>
+          <span class="nav-label" data-i18n="nav_sales">المبيعات</span>
+        </button>
+
+        <button class="nav-item" data-route="customers" onclick="Router.go('customers')" data-module="customers">
+          <span class="nav-icon">👥</span>
+          <span class="nav-label" data-i18n="nav_customers">العملاء</span>
+        </button>
+
+        <button class="nav-item" data-route="purchases" onclick="Router.go('purchases')" data-module="purchases">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-label" data-i18n="nav_purchases">المشتريات</span>
+        </button>
+
+        <button class="nav-item" data-route="suppliers" onclick="Router.go('suppliers')" data-module="suppliers">
+          <span class="nav-icon">🏭</span>
+          <span class="nav-label" data-i18n="nav_suppliers">الموردين</span>
+        </button>
+
+        <!-- Inventory -->
+        <div class="nav-section-label">المخزن</div>
+
+        <button class="nav-item" data-route="inventory" onclick="Router.go('inventory')" data-module="inventory">
+          <span class="nav-icon">📦</span>
+          <span class="nav-label" data-i18n="nav_inventory">المخزن</span>
+        </button>
+
+        <button class="nav-item" data-route="inventory-count" onclick="Router.go('inventory-count')" data-module="inventory-count">
+          <span class="nav-icon">🔢</span>
+          <span class="nav-label" data-i18n="nav_inventory_count">الجرد</span>
+        </button>
+
+        <!-- Finance -->
+        <div class="nav-section-label" data-i18n="section_finance">المالية</div>
+
+        <button class="nav-item" data-route="accounting" onclick="Router.go('accounting')" data-module="accounting">
+          <span class="nav-icon">📒</span>
+          <span class="nav-label" data-i18n="nav_accounting">المحاسبة</span>
+        </button>
+
+        <button class="nav-item" data-route="expenses" onclick="Router.go('expenses')" data-module="expenses">
+          <span class="nav-icon">💸</span>
+          <span class="nav-label" data-i18n="nav_expenses">المصروفات</span>
+        </button>
+
+        <button class="nav-item" data-route="reports" onclick="Router.go('reports')" data-module="reports">
+          <span class="nav-icon">📈</span>
+          <span class="nav-label" data-i18n="nav_reports">التقارير</span>
+        </button>
+
+        <!-- Operations -->
+        <div class="nav-section-label" data-i18n="section_operations">العمليات</div>
+
+        <button class="nav-item" data-route="hr" onclick="Router.go('hr')" data-module="hr">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label" data-i18n="nav_hr">الموظفين</span>
+        </button>
+
+        <!-- System -->
+        <div class="nav-section-label" data-i18n="section_system">النظام</div>
+
+        <button class="nav-item" data-route="settings" onclick="Router.go('settings')" data-module="settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label" data-i18n="nav_settings">الإعدادات</span>
+        </button>
+
+      </nav>
+
+      <!-- User Card -->
+      <div class="sidebar-footer">
+        <div class="user-card" onclick="toggleDropdown(document.getElementById('user-dropdown-menu'))">
+          <div class="user-avatar" id="user-avatar-sidebar">—</div>
+          <div class="user-info">
+            <div class="user-name" id="user-name-sidebar">...</div>
+            <div class="user-role" id="user-role-sidebar">...</div>
+          </div>
+          <span style="color:rgba(255,255,255,0.3);font-size:0.8rem;margin-right:auto">⋮</span>
+        </div>
+
+        <!-- User Dropdown -->
+        <div class="dropdown" style="position:relative">
+          <div class="dropdown-menu" id="user-dropdown-menu" style="bottom:100%;top:auto;right:0;left:0;min-width:auto">
+            <button class="dropdown-item" onclick="Router.go('settings')">
+              <span>⚙️</span> الإعدادات
+            </button>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item danger" onclick="handleLogout()">
+              <span>🚪</span> تسجيل الخروج
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMobileSidebar()"></div>
+
+    <!-- ── MAIN AREA ── -->
+    <div class="main-area">
+
+      <!-- Header -->
+      <header class="app-header">
+
+        <!-- Sidebar Toggle -->
+        <button class="header-toggle" id="sidebar-toggle" onclick="toggleSidebar()" title="طي/فتح القائمة">
+          ☰
+        </button>
+
+        <!-- Breadcrumb -->
+        <div class="header-breadcrumb">
+          <span>Nexus ERP</span>
+          <span class="sep">/</span>
+          <span class="current" id="header-breadcrumb-current">الرئيسية</span>
+        </div>
+
+        <div class="header-spacer"></div>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+
+          <!-- Language Toggle -->
+          <button class="lang-toggle" id="lang-toggle" onclick="i18n.toggle(); updateLangBtn()">
+            EN
+          </button>
+
+          <!-- Notifications -->
+          <button class="header-btn" title="الإشعارات" id="notif-btn">
+            🔔
+            <span class="notif-dot" id="notif-dot" style="display:none"></span>
+          </button>
+
+          <!-- User Avatar -->
+          <div class="dropdown">
+            <div class="user-avatar header-btn" id="header-avatar" style="cursor:pointer;width:36px;height:36px;font-size:.82rem;border-radius:var(--radius-md)"
+              onclick="toggleDropdown(document.getElementById('header-user-menu'))">
+              —
+            </div>
+            <div class="dropdown-menu" id="header-user-menu" style="min-width:180px">
+              <div style="padding:.5rem .75rem;border-bottom:1px solid var(--border);margin-bottom:.35rem">
+                <div style="font-weight:700;font-size:.88rem" id="header-user-name">...</div>
+                <div style="font-size:.75rem;color:var(--text-muted)" id="header-user-role">...</div>
+              </div>
+              <button class="dropdown-item" onclick="Router.go('settings')">⚙️ الإعدادات</button>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item danger" onclick="handleLogout()">🚪 تسجيل الخروج</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content" id="page-content">
+        <!-- Modules render here -->
+      </main>
+
+    </div><!-- /main-area -->
+  </div><!-- /app-shell -->
+
+  <!-- ════════════════════════════════
+       TOAST CONTAINER
+  ════════════════════════════════ -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ════════════════════════════════
+       SCRIPTS
+  ════════════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/router.js"></script>
+
+  <!-- Modules (register as they're built) -->
+  <script src="js/modules/dashboard.js"></script>
+  <!-- <script src="js/modules/inventory.js"></script> -->
+  <!-- <script src="js/modules/sales.js"></script> -->
+  <!-- More modules added here as built -->
+
+  <script>
+  (async () => {
+    // ── Auth Guard ─────────────────────────────
+    const session = await Auth.requireAuth();
+    if (!session) return;
+
+    // ── Init Language ──────────────────────────
+    i18n.init();
+
+    // ── Populate User Info ─────────────────────
+    const { profile } = session;
+    const roleMeta = ROLE_PERMISSIONS[profile?.role] || {};
+    const initials = (profile?.full_name || 'U').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    const roleLabel = roleMeta.label || profile?.role || '';
+
+    // Sidebar
+    document.getElementById('user-avatar-sidebar').textContent = initials;
+    document.getElementById('user-name-sidebar').textContent   = profile?.full_name || 'مستخدم';
+    document.getElementById('user-role-sidebar').textContent   = roleLabel;
+
+    // Header
+    document.getElementById('header-avatar').textContent    = initials;
+    document.getElementById('header-user-name').textContent = profile?.full_name || 'مستخدم';
+    document.getElementById('header-user-role').textContent = roleLabel;
+
+    // ── Filter nav by role ─────────────────────
+    const allowedModules = roleMeta.modules || [];
+    document.querySelectorAll('.nav-item[data-module]').forEach(el => {
+      const mod = el.dataset.module;
+      if (mod && !allowedModules.includes(mod)) {
+        el.style.display = 'none';
+      }
+    });
+
+    // ── Show App ──────────────────────────────
+    document.getElementById('app-shell').style.display = 'flex';
+
+    // ── Init Router ───────────────────────────
+    Router.init(document.getElementById('page-content'));
+
+  })();
+
+  // ── Sidebar Toggle (Desktop) ──────────────
+  let _sidebarCollapsed = store.get('sidebar_collapsed', false);
+
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      toggleMobileSidebar();
+      return;
+    }
+
+    _sidebarCollapsed = !_sidebarCollapsed;
+    store.set('sidebar_collapsed', _sidebarCollapsed);
+    sidebar.classList.toggle('collapsed', _sidebarCollapsed);
+  }
+
+  function toggleMobileSidebar() {
+    const sidebar  = document.getElementById('sidebar');
+    const overlay  = document.getElementById('sidebar-overlay');
+    const isOpen   = sidebar.classList.contains('mobile-open');
+    sidebar.classList.toggle('mobile-open', !isOpen);
+    overlay.classList.toggle('show', !isOpen);
+  }
+
+  // Apply saved collapsed state on desktop
+  if (window.innerWidth > 768 && _sidebarCollapsed) {
+    document.getElementById('sidebar')?.classList.add('collapsed');
+  }
+
+  // ── Language Button Update ────────────────
+  function updateLangBtn() {
+    const btn = document.getElementById('lang-toggle');
+    if (btn) btn.textContent = i18n.lang === 'ar' ? 'EN' : 'عر';
+  }
+
+  // ── Logout ─────────────────────────────────
+  async function handleLogout() {
+    const ok = await Confirm({ title: 'تسجيل الخروج', message: 'هل تريد الخروج من النظام؟', type: 'warning' });
+    if (ok) Auth.logout();
+  }
+
+  // ── Close dropdowns on click outside ────────
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.dropdown')) {
+      document.querySelectorAll('.dropdown-menu.show').forEach(m => m.classList.remove('show'));
+    }
+  });
+
+  // ── Resize handler ───────────────────────────
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      document.getElementById('sidebar')?.classList.remove('mobile-open');
+      document.getElementById('sidebar-overlay')?.classList.remove('show');
+    }
+  });
+  </script>
+</body>
+</html>
